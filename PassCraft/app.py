@@ -361,7 +361,7 @@ def clear_static_folder():
     # Clear all files within the 'static' folder except styles.css, qrcodesample.png, and files in static/fonts folder
     for root, dirs, files in os.walk(static_folder):
         # Skip deletion for the 'static/fonts' directory and its contents
-        if root.endswith('fonts'):
+        if root.endswith('fonts') or root.endswith('logos'):
             continue
         
         for file in files:

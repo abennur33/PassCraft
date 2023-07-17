@@ -365,7 +365,7 @@ def clear_static_folder():
             continue
         
         for file in files:
-            if file != 'styles.css' and file != 'qrcodesample.png':
+            if file != 'styles.css' and file != 'qrcodesample.png' and file != 'logo.png':
                 file_path = os.path.join(root, file)
                 os.remove(file_path)
 

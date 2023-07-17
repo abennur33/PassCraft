@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome - PassCraft</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+
+</head>
+<body>
+    <div class="header">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+        <h1>PassCraft</h1>
+        <h2>by Aadit Bennur</h2>
+        <a href="https://github.com/abennur33" target="_blank">Check out my GitHub!</a>
+        <!-- Dark mode toggle switch here -->
+        <label class="dark-mode-label">Dark Mode</label> 
+        <label class="switch">
+            <input type="checkbox" id="dark-mode-toggle">
+            <span class="slider"></span>
+        </label>
+    </div>
+    <div class="containerL">
+        <div class="about-app">
+            <h2>About the App</h2><br>
+            <p>Welcome to PassCraft! This versatile application allows you to generate custom cards and e-tickets for various events and purposes. Whether you need personalized membership cards or digital e-tickets, this app has got you covered.</p><br>
+            <p>You can customize each card with individual names, and even include QR codes for ticket verification. It's a powerful tool for event organizers and businesses seeking to streamline their identification and ticketing process.</p><br>
+            <p>So, let's get started!</p><br>
+        </div>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="flash-messages">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        <p>Before you begin:</p>
+        <div class="info-popup">
+          <ol>
+              <li>Have a template ready to customize for ticket/card generation.</li>
+              <li>Have a spreadsheet ready with each recipient's name and email (if you are planning on sending the cards over email).</li>
+              <li>Ensure the email you will be sending the cards through has a valid app password to use. A tutorial is available later in the process.</li>
+          </ol>
+        </div>
+        <p>Click the button below to begin the process.</p>
+        <form action="/form" method="GET">
+            <input type="submit" value="Begin Form">
+        </form>
+    </div>
+    <script>
+        // Function to toggle dark mode
+        function toggleDarkMode() {
+            const body = document.body;
+            body.classList.toggle('dark-mode');
+            const containers = document.querySelectorAll('.container, .containerL, .container-left, .container-right');
+            containers.forEach(container => container.classList.toggle('dark-mode'));
+            const headers = document.querySelectorAll('h1, h2, h3, p, a');
+            headers.forEach(header => header.classList.toggle('dark-mode'));
+      
+          // Store the user's preference in localStorage
+            const isDarkMode = body.classList.contains('dark-mode');
+            localStorage.setItem('darkModePreference', isDarkMode);
+        }
+      
+        // Check if the user's dark mode preference is set in localStorage
+        const isDarkModePreferred = JSON.parse(localStorage.getItem('darkModePreference'));
+        if (isDarkModePreferred) {
+            toggleDarkMode()
+        }
+      
+        // Attach event listener to the dark mode toggle switch
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        darkModeToggle.addEventListener('change', toggleDarkMode);
+      </script>
+</body>
+</html>

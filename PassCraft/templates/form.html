@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form - PassCraft</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .info-icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: #f0f0f0;
+            text-align: center;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 14px;
+            color: #333;
+            cursor: pointer;
+            position: relative;
+            margin-left: 5px;
+        }
+
+        .info-icon::after {
+            content: attr(data-info);
+            display: none;
+            position: absolute;
+            top: -40px;
+            left: 30px;
+            width: 200px;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+
+        .info-icon:hover::after {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+        <h1>PassCraft</h1>
+        <h2>by Aadit Bennur</h2>
+        <a href="https://github.com/abennur33" target="_blank">Check out my GitHub!</a>
+        <!-- Dark mode toggle switch here -->
+        <label class="dark-mode-label">Dark Mode</label> 
+        <label class="switch">
+            <input type="checkbox" id="dark-mode-toggle">
+            <span class="slider"></span>
+        </label>
+    </div>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flash-messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <!-- Page Summary -->
+    <div class="page-summary">
+        <h2>Form - Upload Files</h2>
+        <p>This is the first step in creating your custom passes. Upload the image template and a spreadsheet containing recipient names and emails (if needed).</p><br>
+    </div>
+    <div class="container">
+        <form method="POST" enctype="multipart/form-data">
+            <h3>Upload the image template:</h3><br>
+            <input type="file" name="template_file">
+            <span class="info-icon" data-info="Please upload a .png image.">i</span><br><br>
+    
+            <h3>Upload the members spreadsheet:</h3><br>
+            <input type="file" name="spreadsheet_file">
+            <span class="info-icon" data-info="Please upload a spreadsheet with a column called 'Name' and a column called 'Email'.">i</span><br><br>
+    
+            <input type="submit" value="Next">
+        </form>
+    </div>
+    <script>
+        // Function to toggle dark mode
+        function toggleDarkMode() {
+            const body = document.body;
+            body.classList.toggle('dark-mode');
+            const containers = document.querySelectorAll('.container, .containerL, .container-left, .container-right');
+            containers.forEach(container => container.classList.toggle('dark-mode'));
+            const headers = document.querySelectorAll('h1, h2, h3, p, a');
+            headers.forEach(header => header.classList.toggle('dark-mode'));
+      
+          // Store the user's preference in localStorage
+            const isDarkMode = body.classList.contains('dark-mode');
+            localStorage.setItem('darkModePreference', isDarkMode);
+        }
+      
+        // Check if the user's dark mode preference is set in localStorage
+        const isDarkModePreferred = JSON.parse(localStorage.getItem('darkModePreference'));
+        if (isDarkModePreferred) {
+          toggleDarkMode()
+        }
+      
+        // Attach event listener to the dark mode toggle switch
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        darkModeToggle.addEventListener('change', toggleDarkMode);
+      </script>
+</body>
+</html>

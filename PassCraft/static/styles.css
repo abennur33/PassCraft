@@ -1,0 +1,396 @@
+/* Reset some default styles for consistency */
+body, h1, h2, h3, p, ul, li, form, input, img {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Global styles for the entire app */
+body {
+  font-family: 'Corbel-Regular', Arial, sans-serif;
+  background-color: #EAE7DC; /* Updated to the light beige color */
+  color: #8E8D8A; /* Updated to the gray color */
+}
+
+/* Header styles */
+.header {
+  display: flex;
+  align-items: center;
+  background-color: #E98074; /* Updated to the reddish color */
+  padding: 10px 20px;
+  color: #EAE7DC; /* Updated to the light beige color */
+}
+
+.header h1 {
+  font-size: 32px; /* Updated font-size to make it bigger */
+  margin-left: 100px;
+  color: #EAE7DC; /* Updated to the light beige color */
+}
+
+.header h2 {
+  font-size: 20px; /* Updated font-size to make it bigger */
+  margin-left: 10px;
+  margin-right: 400px;
+  color: #D8C3A5; /* Updated to the light beige color */
+}
+
+/* Dark mode label */
+.dark-mode-label {
+  font-family: 'Corbel-Regular', Arial, sans-serif;
+  color: #fff; /* Updated to white text color */
+  margin-right: 5px; /* Adjusted the margin to separate the label from the toggle */
+}
+
+/* Header link styles */
+.header a {
+  color: #EAE7DC; /* Updated to the light beige color */
+  text-decoration: underline;
+  margin-left: 50px; /* Adjusted the margin to separate the link from the label */
+  margin-right: 325px; /* Add a margin to separate the link from the edge of the screen */
+}
+
+/* Dark mode toggle styles */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  border-radius: 34px;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  border-radius: 50%;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #D8C3A5; /* Updated to the beige color */
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #D8C3A5; /* Updated to the beige color */
+}
+
+input:checked + .slider:before {
+  transform: translateX(20px);
+}
+
+/* Page Summary styles */
+.page-summary {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.page-summary h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+/* Container styles */
+.containerL {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff; /* Add a white background to the container */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow to the container */
+  transition: background-color 0.3s ease; /* Add transition for smoother dark mode change */
+}
+
+.containerL.dark-mode {
+  background-color: #333; /* Dark background color */
+  color: #EAE7DC; /* Light text color */
+}
+
+.containerL.dark-mode form input[type="text"],
+.containerL.dark-mode form input[type="number"],
+.containerL.dark-mode form textarea,
+.containerL.dark-mode .info-icon {
+  border-color: #888; /* Darker border color for inputs and info boxes in dark mode */
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff; /* Add a white background to the container */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow to the container */
+  display: flex;
+  flex-direction: row; /* Change the flex direction to row */
+  justify-content: space-between;
+}
+
+.container.dark-mode {
+  background-color: #333; /* Dark background color */
+  color: #EAE7DC; /* Light text color */
+}
+
+.container.dark-mode form input[type="text"],
+.container.dark-mode form input[type="number"],
+.container.dark-mode form textarea,
+.container.dark-mode .info-icon {
+  border-color: #888; /* Darker border color for inputs and info boxes in dark mode */
+}
+
+.container form {
+  display: flex;
+  flex-direction: row; /* Align the form elements in a row */
+  align-items: center; /* Align form elements vertically center within the container */
+  margin-bottom: 10px; /* Add some margin between each form */
+}
+
+/* Styling for the text elements */
+.container form label {
+  width: 150px; /* Set a fixed width for the labels to create consistent spacing */
+}
+
+/* Styling for the input fields */
+.container form input[type="text"],
+.container form input[type="number"],
+.container form textarea {
+  flex: 1; /* Allow the input fields to grow and take remaining space */
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.3s ease; /* Add transition for smoother dark mode change */
+}
+
+.container form input[type="text"]:focus,
+.container form input[type="number"]:focus,
+.container form textarea:focus {
+  border-color: #3b82f6; /* Updated to a toned down blue */
+}
+
+/* Add space between input fields and info boxes */
+.container form input[type="text"],
+.container form input[type="number"],
+.container form textarea,
+.info-icon {
+  margin-right: 10px;
+}
+
+.back-button-container {
+  display: flex;
+  align-items: flex-start; /* Align the button to the top within the container */
+  margin-bottom: 20px; /* Add some margin at the bottom to separate it from the main container */
+  margin-left: 20px;
+}
+
+/* Styling for info boxes */
+.info-icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: #f0f0f0;
+  text-align: center;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  position: relative;
+}
+
+.info-icon::after {
+  content: attr(data-info);
+  display: none;
+  position: absolute;
+  top: -40px;
+  left: 30px;
+  width: 200px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+.info-icon:hover::after {
+  display: block;
+}
+
+/* New container styles for left and right halves */
+.container-flex {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.container-left {
+  flex: 1;
+  max-width: 50%;
+  padding: 20px;
+  padding-right: 10px; /* Add right padding for space between left and right containers */
+  background-color: #f9fafb;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease; /* Add transition for smoother dark mode change */
+}
+
+.container-left.dark-mode {
+  background-color: #222; /* Darker background color for left container in dark mode */
+}
+
+.container-right {
+  flex: 1;
+  max-width: 50%;
+  padding: 20px;
+  padding-left: 10px; /* Add left padding for space between left and right containers */
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease; /* Add transition for smoother dark mode change */
+}
+
+.container-right.dark-mode {
+  background-color: #333; /* Darker background color for right container in dark mode */
+}
+
+/* Align input fields and labels in the left container */
+.container-left form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Styling for flash messages */
+.flash-messages {
+  list-style: none;
+  padding: 10px;
+  margin: 0;
+  background-color: #ffeecc;
+  border: 1px solid #ffcc99;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.flash-messages li {
+  padding: 10px;
+  color: #E85A4F; /* Updated to the reddish color */
+}
+
+/* Form styles */
+form {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+form h3 {
+  flex-basis: 100%;
+  margin-bottom: 10px;
+}
+
+form label {
+  flex-basis: 100%;
+  margin-bottom: 5px;
+}
+
+form input[type="number"] {
+  width: 100px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+form input[type="submit"] {
+  padding: 10px 20px;
+  background-color: #E98074; /* Updated to the reddish color */
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 20px;
+}
+
+@font-face {
+  font-family: 'Corbel-Bold';
+  src: url('./fonts/CORBELB.TTF') format('truetype');
+}
+
+@font-face {
+  font-family: 'Corbel-SemiBold';
+  src: url('./fonts/CORBEL.TTF') format('truetype');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'Corbel-Regular';
+  src: url('./fonts/CORBEL.TTF') format('truetype');
+}
+
+/* Apply custom font to specific elements */
+h1 {
+  font-family: 'Corbel-Bold', Arial, sans-serif;
+  color:#E85A4F /* Updated to the reddish color */
+}
+
+h1.dark-mode {
+  color: #EAE7DC; /* Light text color in dark mode */
+}
+
+h2 {
+  font-family: 'Corbel-SemiBold', Arial, sans-serif;
+  color:#E98074 /* Updated to the reddish color */
+}
+
+h2.dark-mode {
+  color: #D8C3A5; /* Light text color in dark mode */
+}
+
+h3 {
+  font-family: 'Corbel-SemiBold', Arial, sans-serif;
+  color: #D8C3A5; /* Updated to the beige color */
+}
+
+h3.dark-mode {
+  color: #EAE7DC; /* Light text color in dark mode */
+}
+
+p {
+  font-family: 'Corbel-Regular', Arial, sans-serif;
+  color: #8E8D8A; /* Updated to the gray color */
+}
+
+p.dark-mode {
+  color: #EAE7DC; /* Light text color in dark mode */
+}
+
+body {
+  font-family: 'Corbel-Regular', Arial, sans-serif;
+  color: #8E8D8A; /* Updated to the gray color */
+  background-color: #EAE7DC; /* Updated to the light beige color */
+}
+
+a.dark-mode {
+  color: #aee0ff; /* Updated to pastel sky blue for dark mode links */
+}
+
+body.dark-mode {
+  background-color: #222; /* Updated to dark background color */
+  color: #fff; /* Updated to white text color */
+}
+
+/* ... (previous CSS rules) */

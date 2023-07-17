@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tutorial - PassCraft</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+
+</head>
+<body>
+  <div class="header">
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+    <h1>PassCraft</h1>
+    <h2>by Aadit Bennur</h2>
+    <a href="https://github.com/abennur33" target="_blank">Check out my GitHub!</a>
+    <!-- Dark mode toggle switch here -->
+    <label class="dark-mode-label">Dark Mode</label> 
+    <label class="switch">
+        <input type="checkbox" id="dark-mode-toggle">
+        <span class="slider"></span>
+    </label>
+</div>
+  <div class="containerL">
+    <h1>How to generate a Gmail App Password</h1>
+    <div class="info-popup">
+      <ol>
+          <li>Go to your Google Account settings page: <a href="https://myaccount.google.com/" target="_blank">https://myaccount.google.com/</a></li>
+          <li>Click on "Security" in the left menu.</li>
+          <li>Scroll down to "Signing in to Google" and click "2-Step Verification."</li>
+          <li>Set up 2-Step Verification if not done already.</li>
+          <li>Scroll down the menu and click "App passwords."</li>
+          <li>Choose "Mail" and your device type (or "Other" if not listed).</li>
+          <li>Click "Generate" to get the app password.</li>
+      </ol>
+    </div>
+    <form action="/email" method="GET">
+        <input type="submit" value="Back">
+    </form>
+  </div>
+  <script>
+    // Function to toggle dark mode
+    function toggleDarkMode() {
+        const body = document.body;
+        body.classList.toggle('dark-mode');
+        const containers = document.querySelectorAll('.container, .containerL, .container-left, .container-right');
+        containers.forEach(container => container.classList.toggle('dark-mode'));
+        const headers = document.querySelectorAll('h1, h2, h3, p, a');
+        headers.forEach(header => header.classList.toggle('dark-mode'));
+  
+      // Store the user's preference in localStorage
+        const isDarkMode = body.classList.contains('dark-mode');
+        localStorage.setItem('darkModePreference', isDarkMode);
+    }
+  
+    // Check if the user's dark mode preference is set in localStorage
+    const isDarkModePreferred = JSON.parse(localStorage.getItem('darkModePreference'));
+    if (isDarkModePreferred) {
+        toggleDarkMode()
+    }
+  
+    // Attach event listener to the dark mode toggle switch
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    darkModeToggle.addEventListener('change', toggleDarkMode);
+  </script>
+</body>
+</html>

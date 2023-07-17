@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Position - PassCraft</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+
+    <style>
+        #preview {
+            width: 500px;
+            height: 300px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+        .info-icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: #f0f0f0;
+            text-align: center;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 14px;
+            color: #333;
+            cursor: pointer;
+            position: relative;
+            margin-left: 5px;
+        }
+
+        .info-icon::after {
+            content: attr(data-info);
+            display: none;
+            position: absolute;
+            top: -40px;
+            left: 30px;
+            width: 200px;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+
+        .info-icon:hover::after {
+            display: block;
+        }
+    </style>
+    <script>
+        $(document).ready(function() {
+            // Get the canvas element and context
+            var canvas = document.getElementById("preview");
+            var ctx = canvas.getContext("2d");
+
+            // Default values for position and font size
+            var xPosition = 0;
+            var yPosition = 0;
+            var fontSize = 1;
+            var fontFamily = "Arial";
+            var textColor = "#000000"
+            var testName = "John Doe"
+
+            // Get the template file path from Flask
+            var templateFilePath = "{{ template_file_path }}";
+
+            // Function to draw the preview with current settings
+            function drawPreview() {
+                // Clear the canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Draw the image
+                var image = new Image();
+                image.src = templateFilePath;
+                image.onload = function() {
+                    ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+                    const ratioX = image.width / canvas.width;
+                    const ratioY = image.height / canvas.height;
+
+                    // Adjust the inputted coordinates and font size by the ratio
+                    const adjustedX = xPosition / ratioX;
+                    const adjustedY = canvas.height - yPosition / ratioY;
+                    const adjustedFontSize = fontSize / ratioY;
+
+                    // Draw the text
+                    ctx.font = "bold " + adjustedFontSize + "px " + fontFamily;
+                    ctx.letterSpacing = '5px';
+                    ctx.fillStyle = textColor;
+                    ctx.fillText(testName, adjustedX, adjustedY);
+                };
+            }
+
+            // Update position and redraw preview on input change
+            $("#x_position").on("input", function() {
+                xPosition = parseInt($(this).val());
+                drawPreview();
+            });
+
+            $("#y_position").on("input", function() {
+                yPosition = parseInt($(this).val());
+                drawPreview();
+            });
+
+            // Update font size and redraw preview on input change
+            $("#font_size").on("input", function() {
+                fontSize = parseInt($(this).val());
+                drawPreview();
+            });
+
+            $("#font_family").on("change", function() {
+                fontFamily = ($(this).val());
+                drawPreview();
+            });
+
+            $("#text_color").on("change", function() {
+                textColor = ($(this).val());
+                drawPreview();
+            });
+
+            $("#test_name").on("change", function() {
+                testName = ($(this).val());
+                drawPreview();
+            });
+
+            // Initial draw of the preview
+            drawPreview();
+        });
+    </script>
+</head>
+<body>
+    <div class="header">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+        <h1>PassCraft</h1>
+        <h2>by Aadit Bennur</h2>
+        <a href="https://github.com/abennur33" target="_blank">Check out my GitHub!</a>
+        <!-- Dark mode toggle switch here -->
+        <label class="dark-mode-label">Dark Mode</label> 
+        <label class="switch">
+            <input type="checkbox" id="dark-mode-toggle">
+            <span class="slider"></span>
+        </label>
+    </div>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flash-messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <!-- Page Summary -->
+    <div class="page-summary">
+        <h2>Position - Set Coordinates</h2>
+        <p>Adjust the position and appearance of the recipient's name on the pass. You can set the X and Y coordinates, font size, font family, and text color.</p>
+        <p>A preview is shown below of what your changes will look like on the provided template, though be wary since it may not be 100% accurate.</p>
+        <p>Due to the large variation in name lengths, it is reccommended to leave ample space for variability in name lengths. </p><br>
+    </div>
+    <div class="container-flex">
+        <div class="container-left">
+            <form method="POST">
+                <h3>Set the position of the name:</h3>
+                <label>X Position:</label>
+                <input type="number" id="x_position" name="x_position" min="0" step="1"><br>
+                <label>Y Position:</label>
+                <input type="number" id="y_position" name="y_position" min="0" step="1"><br>
+                <h3>Set the font size:</h3>
+                <input type="number" id="font_size" name="font_size" min="10" step="1"><br><br>
+                <select id="font_family" name="font_family">
+                  <option value="Arial">Arial</option>
+                  <option value="Times New Roman">Times New Roman</option>
+                  <option value="Courier New">Courier New</option>
+                  <option value="Brush Script MT">Brush Script MT</option>
+                </select><br><br>
+                <h3>Set the text color:</h3>
+                <input type="color" id="text_color" name="text_color"><br><br>
+                <input type="submit" value="Next">
+            </form>
+        </div>
+        <div class="container-right">
+            <h3>Preview:</h3>
+                <canvas id="preview"></canvas><br>
+                <p>For testing purposes, choose a name:</p>
+                <select id="test_name" name="test_name">
+                    <option value="John Doe">John Doe</option>
+                    <option value="Johnathan Doemenicus III">Johnathan Doemenicus III</option>
+                </select>
+        </div>
+    </div>
+    <div class="back-button-container">
+        <form action="/form" method="GET">
+            <input type="submit" value="Back">
+        </form>
+    </div>
+    <script>
+        // Function to toggle dark mode
+        function toggleDarkMode() {
+            const body = document.body;
+            body.classList.toggle('dark-mode');
+            const containers = document.querySelectorAll('.container, .containerL, .container-left, .container-right');
+            containers.forEach(container => container.classList.toggle('dark-mode'));
+            const headers = document.querySelectorAll('h1, h2, h3, p, a');
+            headers.forEach(header => header.classList.toggle('dark-mode'));
+      
+          // Store the user's preference in localStorage
+            const isDarkMode = body.classList.contains('dark-mode');
+            localStorage.setItem('darkModePreference', isDarkMode);
+        }
+      
+        // Check if the user's dark mode preference is set in localStorage
+        const isDarkModePreferred = JSON.parse(localStorage.getItem('darkModePreference'));
+        if (isDarkModePreferred) {
+            toggleDarkMode()
+        }
+      
+        // Attach event listener to the dark mode toggle switch
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        darkModeToggle.addEventListener('change', toggleDarkMode);
+      </script>
+</body>
+</html>

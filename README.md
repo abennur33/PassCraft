@@ -1,6 +1,6 @@
 # PassCraft: Your Event Pass Generator
 
-![PassCraft](./static/images/passcraft-logo.png)
+![PassCraft](./PassCraft/static/logo1.png)
 
 PassCraft is a powerful and user-friendly web application that allows you to generate custom membership cards and e-tickets for various events and purposes. Whether you need personalized cards for exclusive club members or digital tickets for an upcoming event, PassCraft has got you covered. The app provides a seamless and efficient way to create professional passes with individual names and unique QR codes, simplifying your event management process.
 

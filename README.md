@@ -25,6 +25,10 @@ PassCraft is a powerful and user-friendly web application that allows you to gen
 5. **Export and Distribute**: Once you've designed your passes, export them for easy printing and distribution or distribute them over email.
 
 6. **Efficient Event Management**: With PassCraft, managing your event attendees becomes a breeze. Scan the QR codes on the passes for quick and smooth entry verification.
+   
+## Hosted Web App
+
+Check out the hosted web app: [PassCraft](http://abennur.pythonanywhere.com)
 
 ## Installation and Deployment
 
@@ -45,12 +49,13 @@ PassCraft is a powerful and user-friendly web application that allows you to gen
 - HTML/CSS
 - JavaScript
 
+
 ## Contributing
 
 Contributions are welcome! If you find any issues or have feature suggestions, please open an issue or submit a pull request.
 
 ---
 
-<kbd style="background-color: #E98074; color: #EAE7DC; padding: 8px 16px; border-radius: 4px; font-size: 14px;">Color Scheme: #EAE7DC, #E98074, #8E8D8A, #3b82f6, #E85A4F</kbd>
+<kbd style="background-color: #EAE7DC; color: #E98074; padding: 8px 16px; border-radius: 4px; font-size: 14px;">Color Scheme: #EAE7DC, #E98074, #8E8D8A, #3b82f6, #E85A4F</kbd>
 
 ---

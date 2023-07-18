@@ -356,10 +356,10 @@ def send_email(s_email, s_pass, recipient_email, recipient_name, email_subject, 
 
 def clear_static_folder():
     # Get the path to the 'static' folder
-    static_folder = os.path.join(os.getcwd(), 'static')
+    temp_folder = os.path.join(os.getcwd(), 'temp')
 
     # Clear all files within the 'static' folder except styles.css, qrcodesample.png, and files in static/fonts folder
-    for root, dirs, files in os.walk(static_folder):
+    for root, dirs, files in os.walk(temp_folder):
         # Skip deletion for the 'static/fonts' directory and its contents
         if root.endswith('fonts') or root.endswith('logos'):
             continue

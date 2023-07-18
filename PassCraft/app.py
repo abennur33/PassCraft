@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session, flash, send_file, after_this_request, send_from_directory, current_app
+from flask import Flask, render_template, request, redirect, session, flash, send_file, after_this_request, send_from_directory
 from reportlab.lib.pagesizes import portrait
 from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
@@ -26,7 +26,6 @@ pdfmetrics.registerFont(TTFont('Times New Roman', 'static/fonts/times new roman.
 pdfmetrics.registerFont(TTFont('Courier New', 'static/fonts/cour.ttf'))
 pdfmetrics.registerFont(TTFont('Brush Script MT', 'static/fonts/brush script mt kursiv.ttf'))
 
-
 app = Flask(__name__)
 app.secret_key = 'secretkey'
 app.config['UPLOAD_FOLDER'] = 'static/downloadables'
@@ -38,20 +37,51 @@ ALLOWED_EXTENSIONS_X = {'xlsx'}
 def allowed_file_png(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS_P
 
+
 def allowed_file_excel(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS_X
 
+
 def cleanup_tasks():
     # Perform your cleanup tasks here
-    clear_static_folder()
+    clear_temp_folder()
     # For example, you could close database connections, delete temporary files, etc.
 
+
 atexit.register(cleanup_tasks)
+
+
+def create_temp_folder():
+    # Create the 'temp' directory if it doesn't exist
+    if not os.path.exists('temp'):
+        os.makedirs('temp')
+
+    # Create subdirectories for 'membership_cards', 'uploads', and 'qrcodes'
+    membership_cards_folder = os.path.join('temp', 'membership_cards')
+    uploads_folder = os.path.join('temp', 'uploads')
+    qrcodes_folder = os.path.join('temp', 'qrcodes')
+
+    # Create subdirectories if they don't exist
+    os.makedirs(membership_cards_folder, exist_ok=True)
+    os.makedirs(uploads_folder, exist_ok=True)
+    os.makedirs(qrcodes_folder, exist_ok=True)
+
+
+def clear_temp_folder():
+    # Clear the 'temp' directory if it exists
+    if os.path.exists('temp'):
+        shutil.rmtree('temp')
+
+@app.route('/temp/<path:filename>', methods=['GET'])
+def serve_temp_file(filename):
+    return send_from_directory('temp', filename)
+
 
 @app.route('/', methods=['GET'])
 def welcome():
     session.clear()
-    clear_static_folder()
+    clear_temp_folder()
+    create_temp_folder()
     return render_template('welcome.html')
 
 
@@ -67,8 +97,8 @@ def form():
             flash('Invalid file type. Please upload a PNG template file and an XLSX spreadsheet file.')
             return redirect(request.url)
         
-        template_file_path = f"static/uploads/{template_file.filename}"
-        spreadsheet_file_path = f"static/uploads/{spreadsheet_file.filename}"
+        template_file_path = f"temp/uploads/{template_file.filename}"
+        spreadsheet_file_path = f"temp/uploads/{spreadsheet_file.filename}"
         template_file.save(template_file_path)
         spreadsheet_file.save(spreadsheet_file_path)
         
@@ -226,7 +256,7 @@ def verify(name):
 def generate_membership_cards_and_save_locally(template_file_path, spreadsheet_file_path, qr_x, qr_y, qr_size, x_pos, y_pos, f_size, f_fam,
                                               t_col):
     df = pd.read_excel(spreadsheet_file_path, sheet_name="Sheet1")
-    membership_card_dir = "static/membership_cards"
+    membership_card_dir = "temp/membership_cards"
     
     # Create the directory to store the generated membership cards if it doesn't exist
     os.makedirs(membership_card_dir, exist_ok=True)
@@ -255,7 +285,7 @@ def generate_membership_cards_and_save_locally(template_file_path, spreadsheet_f
         c.drawImage(ImageReader(image), 0, 0, width=template_width, height=template_height)
 
         if qr_size > 0:
-            qr_image_path = f"static/qrcodes/{member_name}_qr.png"
+            qr_image_path = f"temp/qrcodes/{member_name}_qr.png"
             qr_image.save(qr_image_path)
             c.drawImage(qr_image_path, qr_x, qr_y, width=qr_size, height=qr_size)
         
@@ -288,7 +318,7 @@ def generate_membership_cards_and_send_emails(template_file_path, spreadsheet_fi
         first_name, last_name = member_name.split()  # Split name into first and last name
         member_email = row['Email']  # Get member's email from the spreadsheet
         
-        output_file = f"static/membership_cards/MembershipCard_{member_name}.pdf"
+        output_file = f"temp/membership_cards/MembershipCard_{member_name}.pdf"
         
         # Get the actual size of the PNG template
         image = Image.open(template_file_path)
@@ -308,7 +338,7 @@ def generate_membership_cards_and_send_emails(template_file_path, spreadsheet_fi
         c.drawImage(ImageReader(image), 0, 0, width=template_width, height=template_height)
 
         if qr_size > 0:
-            qr_image_path = f"static/qrcodes/{member_name}_qr.png"
+            qr_image_path = f"temp/qrcodes/{member_name}_qr.png"
             qr_image.save(qr_image_path)
             c.drawImage(qr_image_path, qr_x, qr_y, width=qr_size, height=qr_size)
         
@@ -363,7 +393,7 @@ def send_email(s_email, s_pass, recipient_email, recipient_name, email_subject, 
 
 def clear_static_folder():
     # Get the path to the 'static' folder
-    temp_folder = os.path.join(os.getcwd(), 'temp')
+    temp_folder = os.path.join(os.getcwd(), 'static')
 
     # Clear all files within the 'static' folder except styles.css, qrcodesample.png, and files in static/fonts folder
     for root, dirs, files in os.walk(temp_folder):
@@ -375,7 +405,6 @@ def clear_static_folder():
             if file != 'styles.css' and file != 'qrcodesample.png' and file != 'logo.png':
                 file_path = os.path.join(root, file)
                 os.remove(file_path)
-
 
 
 

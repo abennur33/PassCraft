@@ -8,7 +8,7 @@ body, h1, h2, h3, p, ul, li, form, input, img {
 /* Global styles for the entire app */
 body {
   font-family: 'Corbel-Regular', Arial, sans-serif;
-  background-color: #EAE7DC; /* Updated to the light beige color */
+  background-color: #FFFFFF; /* Updated to the light beige color */
   color: #8E8D8A; /* Updated to the gray color */
 }
 
@@ -16,22 +16,22 @@ body {
 .header {
   display: flex;
   align-items: center;
-  background-color: #E98074; /* Updated to the reddish color */
+  background-color: #A2499B; /* Updated to the reddish color */
   padding: 10px 20px;
-  color: #EAE7DC; /* Updated to the light beige color */
+  color: #FFFFFF; /* Updated to the light beige color */
 }
 
 .header h1 {
   font-size: 32px; /* Updated font-size to make it bigger */
   margin-left: 100px;
-  color: #EAE7DC; /* Updated to the light beige color */
+  color: #FFFFFF; /* Updated to the light beige color */
 }
 
 .header h2 {
   font-size: 20px; /* Updated font-size to make it bigger */
   margin-left: 10px;
   margin-right: 400px;
-  color: #D8C3A5; /* Updated to the light beige color */
+  color: #EAEAEA; /* Updated to the light beige color */
 }
 
 /* Dark mode label */
@@ -43,7 +43,7 @@ body {
 
 /* Header link styles */
 .header a {
-  color: #EAE7DC; /* Updated to the light beige color */
+  color: #FFFFFF; /* Updated to the light beige color */
   text-decoration: underline;
   margin-left: 50px; /* Adjusted the margin to separate the link from the label */
   margin-right: 325px; /* Add a margin to separate the link from the edge of the screen */
@@ -88,11 +88,11 @@ body {
 }
 
 input:checked + .slider {
-  background-color: #D8C3A5; /* Updated to the beige color */
+  background-color: #707070; /* Updated to the beige color */
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #D8C3A5; /* Updated to the beige color */
+  box-shadow: 0 0 1px #707070; /* Updated to the beige color */
 }
 
 input:checked + .slider:before {
@@ -110,6 +110,17 @@ input:checked + .slider:before {
   margin-bottom: 10px;
 }
 
+.verify {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.verify h2 {
+  font-size: 70px;
+  margin-bottom: 10px;
+}
+
+
 /* Container styles */
 .containerL {
   max-width: 1200px;
@@ -122,7 +133,7 @@ input:checked + .slider:before {
 
 .containerL.dark-mode {
   background-color: #333; /* Dark background color */
-  color: #EAE7DC; /* Light text color */
+  color: #FFFFFF; /* Light text color */
 }
 
 .containerL.dark-mode form input[type="text"],
@@ -143,9 +154,33 @@ input:checked + .slider:before {
   justify-content: space-between;
 }
 
+/* Other styles for the image container */
+.image-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff; /* Add a white background to the container */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow to the container */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Set a fixed width and height for the container */
+  width: 300px;
+  height: 200px;
+  /* Add any other styles as needed */
+}
+
+/* Styles for the image inside the container */
+.image-container img {
+  /* Set max-width and max-height to prevent the image from overflowing the container */
+  max-width: 100%;
+  max-height: 100%;
+}
+
+
 .container.dark-mode {
   background-color: #333; /* Dark background color */
-  color: #EAE7DC; /* Light text color */
+  color: #FFFFFF; /* Light text color */
 }
 
 .container.dark-mode form input[type="text"],
@@ -287,7 +322,7 @@ input:checked + .slider:before {
 
 .flash-messages li {
   padding: 10px;
-  color: #E85A4F; /* Updated to the reddish color */
+  color: #7B1FA2; /* Updated to the reddish color */
 }
 
 /* Form styles */
@@ -317,7 +352,7 @@ form input[type="number"] {
 
 form input[type="submit"] {
   padding: 10px 20px;
-  background-color: #E98074; /* Updated to the reddish color */
+  background-color: #A2499B; /* Updated to the reddish color */
   border: none;
   color: #fff;
   cursor: pointer;
@@ -344,29 +379,29 @@ form input[type="submit"] {
 /* Apply custom font to specific elements */
 h1 {
   font-family: 'Corbel-Bold', Arial, sans-serif;
-  color:#E85A4F /* Updated to the reddish color */
+  color:#7B1FA2 /* Updated to the reddish color */
 }
 
 h1.dark-mode {
-  color: #EAE7DC; /* Light text color in dark mode */
+  color: #FFFFFF; /* Light text color in dark mode */
 }
 
 h2 {
   font-family: 'Corbel-SemiBold', Arial, sans-serif;
-  color:#E98074 /* Updated to the reddish color */
+  color:#A2499B /* Updated to the reddish color */
 }
 
 h2.dark-mode {
-  color: #D8C3A5; /* Light text color in dark mode */
+  color: #707070; /* Light text color in dark mode */
 }
 
 h3 {
   font-family: 'Corbel-SemiBold', Arial, sans-serif;
-  color: #D8C3A5; /* Updated to the beige color */
+  color: #707070; /* Updated to the beige color */
 }
 
 h3.dark-mode {
-  color: #EAE7DC; /* Light text color in dark mode */
+  color: #FFFFFF; /* Light text color in dark mode */
 }
 
 p {
@@ -375,13 +410,13 @@ p {
 }
 
 p.dark-mode {
-  color: #EAE7DC; /* Light text color in dark mode */
+  color: #FFFFFF; /* Light text color in dark mode */
 }
 
 body {
   font-family: 'Corbel-Regular', Arial, sans-serif;
   color: #8E8D8A; /* Updated to the gray color */
-  background-color: #EAE7DC; /* Updated to the light beige color */
+  background-color: #FFFFFF; /* Updated to the light beige color */
 }
 
 a.dark-mode {

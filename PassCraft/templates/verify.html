@@ -5,10 +5,14 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h1>Verification Page</h1>
-    <h2>Name: {{ member_name }}</h2>
-    <p>Congratulations, your membership card is valid!</p>
-    <img src="{{ url_for('static', filename='greencheck.png') }}" alt="Green Checkmark">
+    <div class="verify">
+        <h1>Verification Page</h1>
+        <h2>Name: {{ member_name }}</h2>
+        <p>Congratulations, your membership card is valid!</p><br>
+    </div>
+    <div class = "image-container">
+        <img src="{{ url_for('static', filename='greencheck.png') }}" alt="Green Checkmark">
+    </div>
 </body>
 </html>
 

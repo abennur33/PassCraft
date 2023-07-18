@@ -18,6 +18,7 @@ import re
 import os
 import zipfile
 import shutil
+import atexit
 
 # Register the fonts
 pdfmetrics.registerFont(TTFont('Arial', 'static/fonts/arial.ttf'))
@@ -40,6 +41,12 @@ def allowed_file_png(filename):
 def allowed_file_excel(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS_X
 
+def cleanup_tasks():
+    # Perform your cleanup tasks here
+    clear_static_folder()
+    # For example, you could close database connections, delete temporary files, etc.
+
+atexit.register(cleanup_tasks)
 
 @app.route('/', methods=['GET'])
 def welcome():

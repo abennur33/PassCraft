@@ -271,7 +271,7 @@ def generate_membership_cards_and_save_locally(template_file_path, spreadsheet_f
         image = Image.open(template_file_path)
         template_width, template_height = image.size
 
-        qr_code_data = f"http://127.0.0.1:5000/verify/{first_name}-{last_name}"
+        qr_code_data = f"http://abennur.pythonanywhere.com/verify/{first_name}-{last_name}"
         
         # Step 2: Create the QR code image
         if qr_size > 0:
@@ -324,7 +324,7 @@ def generate_membership_cards_and_send_emails(template_file_path, spreadsheet_fi
         image = Image.open(template_file_path)
         template_width, template_height = image.size
 
-        qr_code_data = f"http://127.0.0.1:5000/verify/{first_name}-{last_name}"
+        qr_code_data = f"http://abennur.pythonanywhere.com/verify/{first_name}-{last_name}"
         
         # Step 2: Create the QR code image
         if qr_size > 0:

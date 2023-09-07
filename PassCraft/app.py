@@ -380,7 +380,7 @@ def send_email(s_email, s_pass, recipient_email, recipient_name, email_subject, 
 
     # Encode the attachment and add headers
     encoders.encode_base64(part)
-    part.add_header("Content-Disposition", f"attachment; filename= {attachment_file}")
+    part.add_header("Content-Disposition", f"attachment; filename= card.pdf")
     message.attach(part)
 
     # Connect to the SMTP server and send the email

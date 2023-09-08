@@ -315,7 +315,15 @@ def generate_membership_cards_and_send_emails(template_file_path, spreadsheet_fi
     
     for index, row in df.iterrows():
         member_name = row['Name']
-        first_name, last_name = member_name.split()  # Split name into first and last name
+        names = member_name.split()
+        if len(names) >= 2:
+            first_name = names[0]
+            last_name = names[-1]
+        else:
+            # Handle the case where there's only one name (e.g., John)
+            first_name = member_name
+            last_name = ""  # Split name into first and last name
+
         member_email = row['Email']  # Get member's email from the spreadsheet
         
         output_file = f"temp/membership_cards/MembershipCard_{member_name}.pdf"
